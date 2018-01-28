@@ -1,0 +1,34 @@
+{
+    "Cities": [
+      { "CityID": "1", "DityDesc": "ירושלים" },
+      { "CityID": "2", "DityDesc": "תל אביב" },
+      { "CityID": "3", "DityDesc": "חיפה" },
+      { "CityID": "4", "DityDesc": "באר שבע" },
+      { "CityID": "5", "DityDesc": "הרצליה" },
+      { "CityID": "6", "DityDesc": "פתח תקוה" }
+    ]
+    ,
+    "Streets": [
+      { "CityID": "2", "StreetID": "1", "StreetDesc": "קרן היסוד" },
+      { "CityID": "2", "StreetID": "2", "StreetDesc": "דיזינגוף" },
+      { "CityID": "2", "StreetID": "3", "StreetDesc": "אבן גבירול" },
+      { "CityID": "2", "StreetID": "4", "StreetDesc": "דיזינגוף" },
+      { "CityID": "2", "StreetID": "5", "StreetDesc": "דיזינגוף" },
+      { "CityID": "3", "StreetID": "6", "StreetDesc": "חיפה" },
+      { "CityID": "4", "StreetID": "7", "StreetDesc": "באר שבע" },
+      { "CityID": "5", "StreetID": "8", "StreetDesc": "הרצליה" },
+      { "CityID": "6", "StreetID": "9", "StreetDesc": "פתח תקוה" }
+    ]
+    ,
+    "Parking": [
+      {  "ParkingID": "1",  "ParkStartDate": "1", "ParkEndDate": "1", "StreetID": "1", "CityID": "2" },
+      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
+      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
+      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
+      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
+      {  "ParkingID": "3",  "ParkStartDate": "3", "ParkEndDate": "3", "StreetID": "3", "CityID": "3" },
+      {  "ParkingID": "4",  "ParkStartDate": "4", "ParkEndDate": "4", "StreetID": "4", "CityID": "4" },
+      {  "ParkingID": "5",  "ParkStartDate": "5", "ParkEndDate": "5", "StreetID": "5", "CityID": "5" },
+      {  "ParkingID": "6",  "ParkStartDate": "6", "ParkEndDate": "6", "StreetID": "6", "CityID": "6" }
+    ]
+  }

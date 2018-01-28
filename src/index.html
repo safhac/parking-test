@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Elm Demo</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            direction: rtl;
+        }
+
+        .medbox {
+            width: 300px;
+            text-align: right;
+            border: solid 2px #ddd;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        .tablebox {
+            width: 60%;
+            direction: rtl;
+            padding-top: 60px;
+            border: solid 2px #ddd;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #4798ca;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            color: #4798ca;
+            -webkit-margin-before: 0.1em;
+            -webkit-margin-after: 0.83em;
+            -webkit-margin-start: 0px;
+            font-size: 18px;
+            background-color: #f4f4f4;
+            margin: -20px;
+            margin-bottom: 30px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .form-control {
+            margin: 0px 0px 10px 0px;
+            height: 30px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-control.rtl {
+            text-align: right;
+        }
+
+        .form-control.ltr {
+            text-align: left;
+        }
+
+        .button {
+            background-color: #4798ca;
+            padding: 8px 20px;
+            color: #fff;
+            border-radius: 6px;
+            border: solid 1px #4798ca;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .pull-left {
+            text-align: left;
+        }
+
+        .tablest th {
+            background-color: #4798ca;
+            color: #fff;
+            height: 30px;
+        }
+
+        .tablest td {
+            border: solid 1px #ddd;
+
+        }
+
+        .icon {
+            font-family: Wingdings;
+            display: block;
+            background-color: #ddd;
+            text-align: center;
+            height: 30px;
+            padding: 5px;
+        }
+
+        .published {
+            background-color: #aaefaa;
+            font-size: 1.5em;
+        }
+
+        .notpublished {
+            background-color: #f7c2c2;
+            font-size: 2em;
+        }
+
+        .tablebox .button {
+            background-color: #4798ca;
+            padding: 6px 16px;
+            color: #fff;
+            border-radius: 6px;
+            border: solid 1px #4798ca;
+            font-size: 0.9em;
+        }
+
+        td.textcenter {
+            text-align: center;
+        }
+
+        .tablebuttons {
+            margin-bottom: 15px;
+        }
+
+        .tablebox .button.round-but {
+            border-radius: 20px;
+            height: 40px;
+            font-size: 30px;
+            width: 40px;
+            padding: 0;
+            text-align: center;
+            margin: 20px 5px;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async></script>
+    <script>
+        
+        function foundit(params) {
+            var node = document.getElementById('main');
+            var app = Elm.Main.embed(node);
+            app.ports.captchaSubmit.send(params);
+            
+        }
+    </script>
+</head>
+
+<body>
+    <div id="main"></div>
+   
+    <script src="/app.js"></script>
+    
+
+   
+</body>
+
+</html>
