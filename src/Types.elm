@@ -1,16 +1,19 @@
 module Types exposing (..)
 
 import Date
+import RemoteData exposing (WebData)
 
 
 type Msg
     = CaptchaLoad ()
     | CaptchaSubmit String
+    | ShowParkingBy ParkingDisplay
+    | OnFetchParkings (WebData (List Parking))
 
 
 type alias Model =
     { user : User
-    , parkings : List Parking
+    , parkings : WebData (List Parking)
     }
 
 
@@ -49,8 +52,8 @@ type alias Parking =
     { id : Int
     , cityID : CityID
     , streetID : StreetID
-    , start : Maybe Date.Date
-    , end : Maybe Date.Date
+    , start : String
+    , end : String
     }
 
 

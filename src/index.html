@@ -138,24 +138,12 @@
         }
     </style>
     <script src="https://www.google.com/recaptcha/api.js" async></script>
-    <script>
-        
-        function foundit(params) {
-            var node = document.getElementById('main');
-            var app = Elm.Main.embed(node);
-            app.ports.captchaSubmit.send(params);
-            
-        }
-    </script>
+    
 </head>
 
 <body>
     <div id="main"></div>
-   
     <script src="/app.js"></script>
-    
-
-   
 </body>
 
 </html>

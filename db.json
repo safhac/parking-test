@@ -21,14 +21,14 @@
     ]
     ,
     "Parking": [
-      {  "ParkingID": "1",  "ParkStartDate": "1", "ParkEndDate": "1", "StreetID": "1", "CityID": "2" },
-      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
-      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
-      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
-      {  "ParkingID": "2",  "ParkStartDate": "2", "ParkEndDate": "2", "StreetID": "2", "CityID": "2" },
-      {  "ParkingID": "3",  "ParkStartDate": "3", "ParkEndDate": "3", "StreetID": "3", "CityID": "3" },
-      {  "ParkingID": "4",  "ParkStartDate": "4", "ParkEndDate": "4", "StreetID": "4", "CityID": "4" },
-      {  "ParkingID": "5",  "ParkStartDate": "5", "ParkEndDate": "5", "StreetID": "5", "CityID": "5" },
-      {  "ParkingID": "6",  "ParkStartDate": "6", "ParkEndDate": "6", "StreetID": "6", "CityID": "6" }
+      {  "id": 1,  "cityID": 1, "streetID": 1, "start": "1", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
+      {  "id": 3,  "cityID": 3, "streetID": 3, "start": "3", "end": "3" },
+      {  "id": 4,  "cityID": 4, "streetID": 4, "start": "4", "end": "4" },
+      {  "id": 5,  "cityID": 5, "streetID": 5, "start": "5", "end": "5" },
+      {  "id": 6,  "cityID": 6, "streetID": 6, "start": "6", "end": "6" }
     ]
   }

@@ -1,8 +1,11 @@
 port module Main exposing (..)
 
+import Task
 import Html exposing (Html)
+import RemoteData exposing (WebData)
 import View exposing (..)
 import Types exposing (Model, Msg(..), User, Parking, UserStatus(..))
+import Actions.Commands exposing (..)
 
 
 -- ports
@@ -34,7 +37,7 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ({ user = initialUser, parkings = [] }) ! []
+    ({ user = initialUser, parkings = RemoteData.Loading }) ! []
 
 
 
@@ -49,10 +52,16 @@ update msg { user, parkings } =
                 loggedIn =
                     { user | status = Authorised }
             in
-                (Model loggedIn parkings) ! []
+                ( (Model loggedIn parkings), fetchParkings )
 
         CaptchaLoad _ ->
             (Model user parkings) ! []
+
+        ShowParkingBy _ ->
+            (Model user parkings) ! []
+
+        OnFetchParkings updatedParkings ->
+            (Model user updatedParkings) ! []
 
 
 initialUser : User
@@ -61,3 +70,9 @@ initialUser =
     , name = ""
     , status = Unanuthorised
     }
+
+
+toCmd : Msg -> Cmd Msg
+toCmd msg =
+    Task.succeed msg
+        |> Task.perform identity

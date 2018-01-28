@@ -5,8 +5,8 @@ import Html.Attributes exposing (id, style, class, src, type_, value, href, attr
 import Types exposing (Model, Msg(..))
 
 
-view : Html Msg
-view =
+view : Model -> Html Msg
+view _ =
     div [ id "wrap" ]
         [ div [ class "row medbox" ]
             [ div [ class "col-md-8" ]
