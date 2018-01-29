@@ -1,34 +1,34 @@
 {
     "Cities": [
-      { "CityID": "1", "DityDesc": "ירושלים" },
-      { "CityID": "2", "DityDesc": "תל אביב" },
-      { "CityID": "3", "DityDesc": "חיפה" },
-      { "CityID": "4", "DityDesc": "באר שבע" },
-      { "CityID": "5", "DityDesc": "הרצליה" },
-      { "CityID": "6", "DityDesc": "פתח תקוה" }
+      { "CityID": 1, "CityDesc": "ירושלים" },
+      { "CityID": 2, "CityDesc": "תל אביב" },
+      { "CityID": 3, "CityDesc": "חיפה" },
+      { "CityID": 4, "CityDesc": "באר שבע" },
+      { "CityID": 5, "CityDesc": "הרצליה" },
+      { "CityID": 6, "CityDesc": "פתח תקוה" }
     ]
     ,
     "Streets": [
-      { "CityID": "2", "StreetID": "1", "StreetDesc": "קרן היסוד" },
-      { "CityID": "2", "StreetID": "2", "StreetDesc": "דיזינגוף" },
-      { "CityID": "2", "StreetID": "3", "StreetDesc": "אבן גבירול" },
-      { "CityID": "2", "StreetID": "4", "StreetDesc": "דיזינגוף" },
-      { "CityID": "2", "StreetID": "5", "StreetDesc": "דיזינגוף" },
-      { "CityID": "3", "StreetID": "6", "StreetDesc": "חיפה" },
-      { "CityID": "4", "StreetID": "7", "StreetDesc": "באר שבע" },
-      { "CityID": "5", "StreetID": "8", "StreetDesc": "הרצליה" },
-      { "CityID": "6", "StreetID": "9", "StreetDesc": "פתח תקוה" }
+      { "CityID": 1, "StreetID": 1, "StreetDesc": "קרן היסוד" },
+      { "CityID": 2, "StreetID": 2, "StreetDesc": "דיזינגוף" },
+      { "CityID": 3, "StreetID": 3, "StreetDesc": "אבן גבירול" },
+      { "CityID": 4, "StreetID": 4, "StreetDesc": "דיזינגוף" },
+      { "CityID": 5, "StreetID": 5, "StreetDesc": "דיזינגוף" },
+      { "CityID": 6, "StreetID": 6, "StreetDesc": "חיפה" },
+      { "CityID": 7, "StreetID": 7, "StreetDesc": "באר שבע" },
+      { "CityID": 8, "StreetID": 8, "StreetDesc": "הרצליה" },
+      { "CityID": 9, "StreetID": 9, "StreetDesc": "פתח תקוה" }
     ]
     ,
     "Parking": [
-      {  "id": 1,  "cityID": 1, "streetID": 1, "start": "1", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "start": "2", "end": "2" },
-      {  "id": 3,  "cityID": 3, "streetID": 3, "start": "3", "end": "3" },
-      {  "id": 4,  "cityID": 4, "streetID": 4, "start": "4", "end": "4" },
-      {  "id": 5,  "cityID": 5, "streetID": 5, "start": "5", "end": "5" },
-      {  "id": 6,  "cityID": 6, "streetID": 6, "start": "6", "end": "6" }
+      {  "id": 1,  "cityID": 1, "streetID": 1, "date": "1", "start": "1", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
+      {  "id": 3,  "cityID": 3, "streetID": 3, "date": "3", "start": "3", "end": "3" },
+      {  "id": 4,  "cityID": 4, "streetID": 4, "date": "4", "start": "4", "end": "4" },
+      {  "id": 5,  "cityID": 5, "streetID": 5, "date": "5", "start": "5", "end": "5" },
+      {  "id": 6,  "cityID": 6, "streetID": 6, "date": "6", "start": "6", "end": "6" }
     ]
   }

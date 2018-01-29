@@ -8,12 +8,16 @@ type Msg
     = CaptchaLoad ()
     | CaptchaSubmit String
     | ShowParkingBy ParkingDisplay
-    | OnFetchParkings (WebData (List Parking))
+    | OnFetchParkings (WebData (List ParkingRecord))
+    | OnFetchCities (WebData (List City))
+    | OnFetchStreets (WebData (List Street))
 
 
 type alias Model =
     { user : User
-    , parkings : WebData (List Parking)
+    , parkings : WebData (List ParkingRecord)
+    , cities : WebData (List City)
+    , streets : WebData (List Street)
     }
 
 
@@ -48,13 +52,27 @@ type alias Street =
     }
 
 
-type alias Parking =
-    { id : Int
+type alias ParkingRecord =
+    { id : ParkingID
     , cityID : CityID
     , streetID : StreetID
+    , date : String
     , start : String
     , end : String
     }
+
+
+type alias Parking =
+    { cities : List City
+    , streets : List Street
+    , parkings : List ParkingRecord
+    }
+
+
+type EntityType
+    = ParkingType
+    | CityType
+    | StreetType
 
 
 type alias CityID =
@@ -62,4 +80,8 @@ type alias CityID =
 
 
 type alias StreetID =
+    Int
+
+
+type alias ParkingID =
     Int

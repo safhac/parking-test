@@ -4,7 +4,7 @@ import Task
 import Html exposing (Html)
 import RemoteData exposing (WebData)
 import View exposing (..)
-import Types exposing (Model, Msg(..), User, Parking, UserStatus(..))
+import Types exposing (Model, Msg(..), User, ParkingRecord, UserStatus(..))
 import Actions.Commands exposing (..)
 
 
@@ -37,7 +37,13 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ({ user = initialUser, parkings = RemoteData.Loading }) ! []
+    ({ user = initialUser
+     , parkings = RemoteData.Loading
+     , cities = RemoteData.Loading
+     , streets = RemoteData.Loading
+     }
+    )
+        ! []
 
 
 
@@ -45,23 +51,32 @@ init =
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg { user, parkings } =
+update msg model =
     case msg of
         CaptchaSubmit key ->
             let
+                olUser =
+                    model.user
+
                 loggedIn =
-                    { user | status = Authorised }
+                    { olUser | status = Authorised }
             in
-                ( (Model loggedIn parkings), fetchParkings )
+                ( { model | user = loggedIn }, Cmd.batch [ fetchParkings, fetchCities, fetchStreets ] )
 
         CaptchaLoad _ ->
-            (Model user parkings) ! []
+            model ! []
 
         ShowParkingBy _ ->
-            (Model user parkings) ! []
+            model ! []
 
-        OnFetchParkings updatedParkings ->
-            (Model user updatedParkings) ! []
+        OnFetchParkings parkList ->
+            ( { model | parkings = parkList }, Cmd.none )
+
+        OnFetchCities parkList ->
+            ( { model | cities = parkList }, Cmd.none )
+
+        OnFetchStreets parkList ->
+            ( { model | streets = parkList }, Cmd.none )
 
 
 initialUser : User

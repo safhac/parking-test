@@ -39,3 +39,11 @@ recaptchaStyle =
     style
         [ ( "data-sitekey", "6Ldd8kIUAAAAAMWDt3cljw_DssCykzu4Hc36vW_M" )
         ]
+
+
+tablestStyle =
+    style
+        [ ( "cellpadding", "4" )
+        , ( "cellspacing", "0" )
+        , ( "width", "100%" )
+        ]
