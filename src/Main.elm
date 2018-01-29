@@ -4,7 +4,7 @@ import Task
 import Html exposing (Html)
 import RemoteData exposing (WebData)
 import View exposing (..)
-import Types exposing (Model, Msg(..), User, ParkingRecord, UserStatus(..))
+import Types exposing (Model, Msg(..), ModalIs(..), User, ParkingRecord, UserStatus(..))
 import Actions.Commands exposing (..)
 
 
@@ -41,6 +41,7 @@ init =
      , parkings = RemoteData.Loading
      , cities = RemoteData.Loading
      , streets = RemoteData.Loading
+     , state = Off
      }
     )
         ! []
@@ -77,6 +78,14 @@ update msg model =
 
         OnFetchStreets parkList ->
             ( { model | streets = parkList }, Cmd.none )
+
+        ShowNewParking ->
+            case model.state of
+                Off ->
+                    ( { model | state = On }, Cmd.none )
+
+                On ->
+                    ( { model | state = Off }, Cmd.none )
 
 
 initialUser : User

@@ -5,8 +5,9 @@ import Html exposing (Html, div, h2, text, img, label, br, input, a, button, h2,
 import Html.Attributes exposing (id, style, class, src, type_, value, href, attribute)
 import Html.Events exposing (onClick)
 import RemoteData exposing (WebData)
-import Types exposing (Model, Msg(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
+import Types exposing (Model, Msg(..), ModalIs(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
 import Styles.Css exposing (..)
+import Components.NewParkingModal as NewParkingModal exposing (view)
 
 
 view : Model -> Html Msg
@@ -21,13 +22,22 @@ view model =
             maybeList model.streets
                 |> List.map (\s -> ( s.id, s ))
                 |> Dict.fromList
+
+        modalStyle =
+            case model.state of
+                Off ->
+                    modalDisplayNone
+
+                On ->
+                    modalDisplayBlock
     in
         div [ class "row tablebox" ]
             [ maybeParkingList model.parkings cities streets
             , div []
-                [ input [ type_ "submit", value "+", class "button pull-left round-but", Html.Attributes.title "הוסף חנייה" ]
+                [ input [ onClick ShowNewParking, type_ "submit", value "+", class "button pull-left round-but", Html.Attributes.title "הוסף חנייה" ]
                     []
                 ]
+            , NewParkingModal.view modalStyle cities streets
             ]
 
 

@@ -11,6 +11,7 @@ type Msg
     | OnFetchParkings (WebData (List ParkingRecord))
     | OnFetchCities (WebData (List City))
     | OnFetchStreets (WebData (List Street))
+    | ShowNewParking
 
 
 type alias Model =
@@ -18,6 +19,7 @@ type alias Model =
     , parkings : WebData (List ParkingRecord)
     , cities : WebData (List City)
     , streets : WebData (List Street)
+    , state : ModalIs
     }
 
 
@@ -85,3 +87,8 @@ type alias StreetID =
 
 type alias ParkingID =
     Int
+
+
+type ModalIs
+    = On
+    | Off
