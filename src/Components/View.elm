@@ -1,4 +1,4 @@
-module View exposing (view)
+module Components.View exposing (view)
 
 import Html exposing (Html, div, h2, text, img, label, br, input, a)
 import Types exposing (Model, Msg(..), UserStatus(..))

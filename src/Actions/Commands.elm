@@ -2,9 +2,10 @@ module Actions.Commands exposing (..)
 
 import Http
 import Json.Decode as Decode
+import Json.Encode as Encode
 import Json.Decode.Pipeline exposing (decode, required)
-import RemoteData
-import Types exposing (Model, Msg(..), ParkingRecord, City, Street, ParkingDisplay(..))
+import RemoteData exposing (WebData)
+import Types exposing (Model, Msg(..), ParkingID, ParkingRecord, City, Street, ParkingDisplay(..))
 
 
 fetchParkings : Cmd Msg
@@ -72,3 +73,42 @@ streetDecoder =
         |> required "CityID" Decode.int
         |> required "StreetID" Decode.int
         |> required "StreetDesc" Decode.string
+
+
+saveParkingUrl : ParkingID -> String
+saveParkingUrl parkingId =
+    "http://localhost:4000/Parking/" ++ (toString parkingId)
+
+
+saveParkingRequest : ParkingRecord -> Http.Request ParkingRecord
+saveParkingRequest parking =
+    Http.request
+        { body = parkingEncoder parking |> Http.jsonBody
+        , expect = Http.expectJson parkingDecoder
+        , headers = []
+        , method = "POST"
+        , timeout = Nothing
+        , url = saveParkingUrl parking.id
+        , withCredentials = False
+        }
+
+
+saveParkingCmd : ParkingRecord -> Cmd Msg
+saveParkingCmd parking =
+    saveParkingRequest parking
+        |> Http.send OnParkingSave
+
+
+parkingEncoder : ParkingRecord -> Encode.Value
+parkingEncoder parking =
+    let
+        attributes =
+            [ ( "id", Encode.int parking.id )
+            , ( "cityID", Encode.int parking.cityID )
+            , ( "streetID", Encode.int parking.streetID )
+            , ( "date", Encode.string parking.date )
+            , ( "start", Encode.string parking.start )
+            , ( "end", Encode.string parking.end )
+            ]
+    in
+        Encode.object attributes

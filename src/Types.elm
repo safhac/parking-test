@@ -1,17 +1,25 @@
 module Types exposing (..)
 
 import Date
+import Dict
+import Http
 import RemoteData exposing (WebData)
+import DateTimePicker
 
 
 type Msg
-    = CaptchaLoad ()
+    = SetDate Date.Date
+    | CaptchaLoad ()
     | CaptchaSubmit String
-    | ShowParkingBy ParkingDisplay
     | OnFetchParkings (WebData (List ParkingRecord))
     | OnFetchCities (WebData (List City))
     | OnFetchStreets (WebData (List Street))
     | ShowNewParking
+    | DatePickerChanged PickerType DateTimePicker.State (Maybe Date.Date)
+    | OnParkingSave (Result Http.Error ParkingRecord)
+    | UpdateParking Int ParkingChangeType String
+    | CreateParking
+    | FilterParkingsBy ParkingDisplay
 
 
 type alias Model =
@@ -19,7 +27,10 @@ type alias Model =
     , parkings : WebData (List ParkingRecord)
     , cities : WebData (List City)
     , streets : WebData (List Street)
-    , state : ModalIs
+    , uxState : UXState
+    , today : Date.Date
+    , datePickerState : Dict.Dict String DateTimePicker.State
+    , newParking : ParkingRecord
     }
 
 
@@ -39,6 +50,11 @@ type ParkingDisplay
     = All
     | FilterToday
     | EmphasizeToday
+
+
+type ParkingTimeType
+    = Start
+    | End
 
 
 type alias City =
@@ -89,6 +105,25 @@ type alias ParkingID =
     Int
 
 
-type ModalIs
+type alias UXState =
+    { popup : ModalState
+    , filtering : ParkingDisplay
+    }
+
+
+type ModalState
     = On
     | Off
+
+
+type PickerType
+    = AnalogDateTimePicker
+    | TimePicker
+
+
+type ParkingChangeType
+    = StartTime
+    | EndTime
+    | DateChange
+    | CityChange
+    | StreetChange

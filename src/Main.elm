@@ -1,11 +1,9 @@
 port module Main exposing (..)
 
-import Task
 import Html exposing (Html)
-import RemoteData exposing (WebData)
-import View exposing (..)
-import Types exposing (Model, Msg(..), ModalIs(..), User, ParkingRecord, UserStatus(..))
-import Actions.Commands exposing (..)
+import Types exposing (Model, Msg(..))
+import Actions.Update exposing (init, update)
+import Components.View exposing (view)
 
 
 -- ports
@@ -33,70 +31,3 @@ main =
 
 
 -- Model
-
-
-init : ( Model, Cmd Msg )
-init =
-    ({ user = initialUser
-     , parkings = RemoteData.Loading
-     , cities = RemoteData.Loading
-     , streets = RemoteData.Loading
-     , state = Off
-     }
-    )
-        ! []
-
-
-
--- UPDATE
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        CaptchaSubmit key ->
-            let
-                olUser =
-                    model.user
-
-                loggedIn =
-                    { olUser | status = Authorised }
-            in
-                ( { model | user = loggedIn }, Cmd.batch [ fetchParkings, fetchCities, fetchStreets ] )
-
-        CaptchaLoad _ ->
-            model ! []
-
-        ShowParkingBy _ ->
-            model ! []
-
-        OnFetchParkings parkList ->
-            ( { model | parkings = parkList }, Cmd.none )
-
-        OnFetchCities parkList ->
-            ( { model | cities = parkList }, Cmd.none )
-
-        OnFetchStreets parkList ->
-            ( { model | streets = parkList }, Cmd.none )
-
-        ShowNewParking ->
-            case model.state of
-                Off ->
-                    ( { model | state = On }, Cmd.none )
-
-                On ->
-                    ( { model | state = Off }, Cmd.none )
-
-
-initialUser : User
-initialUser =
-    { id = 0
-    , name = ""
-    , status = Unanuthorised
-    }
-
-
-toCmd : Msg -> Cmd Msg
-toCmd msg =
-    Task.succeed msg
-        |> Task.perform identity

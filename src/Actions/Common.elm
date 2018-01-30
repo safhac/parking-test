@@ -1,0 +1,51 @@
+module Actions.Common exposing (..)
+
+import Date.Extra.Config.Config_en_us exposing (config)
+import Date.Extra.Format as Format exposing (format, formatUtc, isoMsecOffsetFormat)
+import RemoteData exposing (WebData)
+import Types exposing (ParkingRecord, ParkingID, ModalState(..))
+
+
+maybeList : WebData (List a) -> List a
+maybeList data =
+    case data of
+        RemoteData.Success list ->
+            list
+
+        _ ->
+            []
+
+
+getMaxParkIdFrom : List ParkingRecord -> Int
+getMaxParkIdFrom parkings =
+    let
+        ids =
+            parkings
+                |> List.map (\p -> getId p)
+
+        maxId =
+            List.maximum ids |> Maybe.withDefault 0
+    in
+        (maxId + 1)
+
+
+getId : { a | id : Int } -> Int
+getId something =
+    something.id
+
+
+getParkById : ParkingID -> List ParkingRecord -> Maybe ParkingRecord
+getParkById pid parkings =
+    parkings
+        |> List.filter (\p -> p.id == pid)
+        |> List.head
+
+
+reverseState : ModalState -> ModalState
+reverseState state =
+    case state of
+        Off ->
+            On
+
+        On ->
+            Off

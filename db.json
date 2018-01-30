@@ -11,24 +11,24 @@
     "Streets": [
       { "CityID": 1, "StreetID": 1, "StreetDesc": "קרן היסוד" },
       { "CityID": 2, "StreetID": 2, "StreetDesc": "דיזינגוף" },
-      { "CityID": 3, "StreetID": 3, "StreetDesc": "אבן גבירול" },
-      { "CityID": 4, "StreetID": 4, "StreetDesc": "דיזינגוף" },
-      { "CityID": 5, "StreetID": 5, "StreetDesc": "דיזינגוף" },
-      { "CityID": 6, "StreetID": 6, "StreetDesc": "חיפה" },
-      { "CityID": 7, "StreetID": 7, "StreetDesc": "באר שבע" },
-      { "CityID": 8, "StreetID": 8, "StreetDesc": "הרצליה" },
-      { "CityID": 9, "StreetID": 9, "StreetDesc": "פתח תקוה" }
+      { "CityID": 2, "StreetID": 3, "StreetDesc": "שדרות אבא חושי" },
+      { "CityID": 2, "StreetID": 4, "StreetDesc": "בן גוריון" },
+      { "CityID": 1, "StreetID": 5, "StreetDesc": "הרצל" },
+      { "CityID": 6, "StreetID": 6, "StreetDesc": "דרך נמיר" },
+      { "CityID": 3, "StreetID": 7, "StreetDesc": "דרך השלום" },
+      { "CityID": 5, "StreetID": 8, "StreetDesc": "עתיר ידע" },
+      { "CityID": 6, "StreetID": 9, "StreetDesc": "הרב דוד קוק" }
     ]
     ,
     "Parking": [
-      {  "id": 1,  "cityID": 1, "streetID": 1, "date": "1", "start": "1", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
-      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2", "start": "2", "end": "2" },
-      {  "id": 3,  "cityID": 3, "streetID": 3, "date": "3", "start": "3", "end": "3" },
-      {  "id": 4,  "cityID": 4, "streetID": 4, "date": "4", "start": "4", "end": "4" },
-      {  "id": 5,  "cityID": 5, "streetID": 5, "date": "5", "start": "5", "end": "5" },
-      {  "id": 6,  "cityID": 6, "streetID": 6, "date": "6", "start": "6", "end": "6" }
+      {  "id": 1,  "cityID": 1, "streetID": 1, "date": "2017-11-02", "start": "02:34", "end": "02:34" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2017-11-30", "start": "02:34", "end": "02:34" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2017-12-01", "start": "02:34", "end": "02:34" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2018-01-01", "start": "02:34", "end": "02:34" },
+      {  "id": 2,  "cityID": 2, "streetID": 2, "date": "2018-01-06", "start": "02:34", "end": "02:34" },
+      {  "id": 3,  "cityID": 3, "streetID": 3, "date": "2018-01-12", "start": "02:34", "end": "02:34" },
+      {  "id": 4,  "cityID": 4, "streetID": 4, "date": "2018-01-29", "start": "02:34", "end": "02:34" },
+      {  "id": 5,  "cityID": 5, "streetID": 5, "date": "2018-01-30", "start": "02:34", "end": "02:34" },
+      {  "id": 6,  "cityID": 6, "streetID": 6, "date": "2018-01-30", "start": "02:34", "end": "02:34" }
     ]
   }

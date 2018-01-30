@@ -11,6 +11,14 @@ server.use(jsonServer.defaults())
 var router = jsonServer.router('db.json')
 server.use(router)
 
+server.use(jsonServer.bodyParser)
+server.use((req, res, next) => {
+  if (req.method === 'POST') {
+    req.body.createdAt = Date.now()
+  }
+  // Continue to JSON Server router
+  next()
+})
 
 console.log('Listening at 4000')
 server.listen(4000)
