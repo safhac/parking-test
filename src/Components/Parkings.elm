@@ -7,8 +7,8 @@ import Html.Events exposing (onClick)
 import Date.Extra.Format exposing (isoString, utcIsoString, isoDateString, utcIsoDateString)
 import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
 import Styles.Css exposing (..)
-import Components.NewParkingModal as NewParkingModal exposing (newParkingView)
-import Actions.Common exposing (maybeList)
+import Components.ParkingModal as ParkingModal exposing (..)
+import Actions.Common exposing (maybeList, getParkById)
 
 
 view : Model -> Html Msg
@@ -23,14 +23,6 @@ view model =
             maybeList model.streets
                 |> List.map (\s -> ( s.id, s ))
                 |> Dict.fromList
-
-        modalStyle =
-            case model.uxState.app of
-                Creating ->
-                    modalDisplayBlock
-
-                _ ->
-                    modalDisplayNone
 
         todayString =
             isoDateString model.today
@@ -60,14 +52,41 @@ view model =
 
                 _ ->
                     allParkings
+
+        popupWindow =
+            case model.uxState.app of
+                Normal ->
+                    div [] []
+
+                Creating pid ->
+                    ParkingModal.newParkingView cities streets model.newParking
+
+                Editing pid ->
+                    let
+                        maybePark =
+                            getParkById pid allParkings
+                    in
+                        case maybePark of
+                            Just park ->
+                                ParkingModal.editParkingView cities streets park
+
+                            Nothing ->
+                                div [] []
+
+                Deleteing pid ->
+                    let
+                        _ =
+                            Debug.log "Deleteing" pid
+                    in
+                        ParkingModal.deleteParkingView pid
     in
         div [ class "row tablebox" ]
             [ listParkings parkings cities streets
             , div []
-                [ input [ onClick ShowNewParking, type_ "submit", value "+", class "button pull-left round-but", Html.Attributes.title "הוסף חנייה" ]
+                [ input [ onClick (ParkingMsg (Creating model.newParking.id)), type_ "submit", value "+", class "button pull-left round-but", Html.Attributes.title "הוסף חנייה" ]
                     []
                 ]
-            , NewParkingModal.newParkingView modalStyle cities streets model.newParking
+            , popupWindow
             ]
 
 
@@ -132,9 +151,9 @@ parkingRow parking cities streets =
             , td []
                 [ text street ]
             , td [ class "textcenter" ]
-                [ input [ type_ "submit", value "עדכן", class "button pull-left" ]
+                [ input [ onClick (ParkingMsg (Editing parking.id)), type_ "submit", value "עדכן", class "button pull-left" ]
                     []
-                , input [ type_ "submit", value "מחק", class "button pull-left" ]
+                , input [ onClick (ParkingMsg (Deleteing parking.id)), type_ "submit", value "מחק", class "button pull-left" ]
                     []
                 ]
             ]

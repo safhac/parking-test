@@ -14,11 +14,10 @@ type Msg
     | OnFetchParkings (WebData (List ParkingRecord))
     | OnFetchCities (WebData (List City))
     | OnFetchStreets (WebData (List Street))
-    | ShowNewParking
+    | ParkingMsg AppState
     | DatePickerChanged PickerType DateTimePicker.State (Maybe Date.Date)
     | OnParkingSave (Result Http.Error ParkingRecord)
-    | UpdateParking Int ParkingChangeType String
-    | CreateParking
+    | UpdateParking Int ParkingProperty String
     | FilterParkingsBy ParkingDisplay
 
 
@@ -119,9 +118,9 @@ type ModalState
 
 type AppState
     = Normal
-    | Creating
-    | Editing
-    | Deleteing
+    | Creating ParkingID
+    | Editing ParkingID
+    | Deleteing ParkingID
 
 
 type PickerType
@@ -129,7 +128,7 @@ type PickerType
     | TimePicker
 
 
-type ParkingChangeType
+type ParkingProperty
     = StartTime
     | EndTime
     | DateChange

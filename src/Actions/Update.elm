@@ -6,7 +6,7 @@ import Date exposing (now)
 import Date.Extra.Core exposing (fromTime)
 import Date.Extra.Format exposing (isoDateString)
 import RemoteData exposing (WebData)
-import Types exposing (Model, Msg(..), UXState, AppState(..), User, ParkingRecord, UserStatus(..), ParkingDisplay(..), ParkingChangeType(..))
+import Types exposing (Model, Msg(..), UXState, AppState(..), User, ParkingRecord, UserStatus(..), ParkingDisplay(..), ParkingProperty(..))
 import Actions.Commands exposing (..)
 import Actions.Common exposing (..)
 
@@ -64,13 +64,27 @@ update msg model =
         OnFetchStreets streetList ->
             ( { model | streets = streetList }, Cmd.none )
 
-        ShowNewParking ->
+        ParkingMsg parkMsg ->
             let
+                _ =
+                    Debug.log "parkmsg" parkMsg
+
                 olUX =
                     model.uxState
 
                 newUX =
-                    { olUX | app = (reverseState olUX.app) }
+                    case parkMsg of
+                        Normal ->
+                            { olUX | app = Normal }
+
+                        Creating pid ->
+                            { olUX | app = Creating pid }
+
+                        Editing pid ->
+                            { olUX | app = Editing pid }
+
+                        Deleteing pid ->
+                            { olUX | app = Deleteing pid }
             in
                 ( { model | uxState = newUX }, Cmd.none )
 
@@ -129,21 +143,9 @@ update msg model =
                             { park | streetID = (Result.withDefault 0 (String.toInt val)) }
             in
                 if (exists == True) then
-                    ( model, saveParkingCmd park )
+                    ( model, saveParkingCmd updatedPark )
                 else
                     ( { model | newParking = updatedPark }, Cmd.none )
-
-        CreateParking ->
-            let
-                old =
-                    model.newParking
-
-                new =
-                    { old | date = isoDateString (model.today) }
-            in
-                ( model
-                , saveParkingCmd new
-                )
 
 
 init : ( Model, Cmd Msg )
@@ -181,6 +183,7 @@ initialParkingRecord =
     }
 
 
+initialUXState : UXState
 initialUXState =
     { app = Normal
     , filtering = All

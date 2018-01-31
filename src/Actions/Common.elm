@@ -39,13 +39,3 @@ getParkById pid parkings =
     parkings
         |> List.filter (\p -> p.id == pid)
         |> List.head
-
-
-reverseState : AppState -> AppState
-reverseState state =
-    case state of
-        Creating ->
-            Normal
-
-        _ ->
-            Creating
