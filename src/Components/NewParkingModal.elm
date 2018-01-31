@@ -1,4 +1,4 @@
-module Components.NewParkingModal exposing (view)
+module Components.NewParkingModal exposing (newParkingView)
 
 import Dict
 import Json.Decode as Json
@@ -6,15 +6,15 @@ import Html exposing (Html, Attribute, div, h2, text, img, label, p, br, span, i
 import Html.Attributes exposing (id, style, class, src, type_, value, href, attribute, required)
 import Html.Events exposing (onClick, onBlur, onInput)
 import Date exposing (Date, hour, minute)
-import Types exposing (Model, Msg(..), ModalState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..), PickerType(..), ParkingTimeType(..), ParkingChangeType(..))
+import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..), PickerType(..), ParkingTimeType(..), ParkingChangeType(..))
 import Styles.Css exposing (..)
 import DateTimePicker
 import DateTimePicker.Config exposing (Config, DatePickerConfig, TimePickerConfig, defaultDatePickerConfig, defaultDateTimeI18n, defaultDateTimePickerConfig, defaultTimePickerConfig)
 import DateTimePicker.Css
 
 
-view : Html.Attribute Msg -> Dict.Dict Int City -> Dict.Dict Int Street -> Date.Date -> Dict.Dict String DateTimePicker.State -> ParkingRecord -> Html Msg
-view displayStyle cities streets today datePickerState newPark =
+newParkingView : Html.Attribute Msg -> Dict.Dict Int City -> Dict.Dict Int Street -> ParkingRecord -> Html Msg
+newParkingView displayStyle cities streets newPark =
     div [ class "row medbox", modalStyle, displayStyle ]
         [ div [ modalContentStyle ]
             [ div []
@@ -23,8 +23,6 @@ view displayStyle cities streets today datePickerState newPark =
                 , br [] []
                 , label [] [ text "התחלה:" ]
                 , br [] []
-
-                -- , viewPicker TimePicker Start today (Dict.get (toString today) datePickerState |> Maybe.withDefault DateTimePicker.initialState)
                 , input [ onInput (UpdateParking (newPark.id) StartTime), type_ "time", value newPark.start, class "form-control ltr", id "startTime", required True ] []
                 ]
             , div []

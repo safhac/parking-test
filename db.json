@@ -29,6 +29,6 @@
       {  "id": 3,  "cityID": 3, "streetID": 3, "date": "2018-01-12", "start": "02:34", "end": "02:34" },
       {  "id": 4,  "cityID": 4, "streetID": 4, "date": "2018-01-29", "start": "02:34", "end": "02:34" },
       {  "id": 5,  "cityID": 5, "streetID": 5, "date": "2018-01-30", "start": "02:34", "end": "02:34" },
-      {  "id": 6,  "cityID": 6, "streetID": 6, "date": "2018-01-30", "start": "02:34", "end": "02:34" }
+      {  "id": 6,  "cityID": 6, "streetID": 6, "date": "2018-01-31", "start": "02:34", "end": "02:34" }
     ]
   }

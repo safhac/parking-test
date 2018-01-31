@@ -3,7 +3,7 @@ module Actions.Commands exposing (..)
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
-import Json.Decode.Pipeline exposing (decode, required)
+import Json.Decode.Pipeline exposing (decode, required, hardcoded)
 import RemoteData exposing (WebData)
 import Types exposing (Model, Msg(..), ParkingID, ParkingRecord, City, Street, ParkingDisplay(..))
 
@@ -58,6 +58,7 @@ parkingDecoder =
         |> required "date" Decode.string
         |> required "start" Decode.string
         |> required "end" Decode.string
+        |> hardcoded False
 
 
 cityDecoder : Decode.Decoder City

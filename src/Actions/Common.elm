@@ -3,7 +3,7 @@ module Actions.Common exposing (..)
 import Date.Extra.Config.Config_en_us exposing (config)
 import Date.Extra.Format as Format exposing (format, formatUtc, isoMsecOffsetFormat)
 import RemoteData exposing (WebData)
-import Types exposing (ParkingRecord, ParkingID, ModalState(..))
+import Types exposing (ParkingRecord, ParkingID, AppState(..))
 
 
 maybeList : WebData (List a) -> List a
@@ -41,11 +41,11 @@ getParkById pid parkings =
         |> List.head
 
 
-reverseState : ModalState -> ModalState
+reverseState : AppState -> AppState
 reverseState state =
     case state of
-        Off ->
-            On
+        Creating ->
+            Normal
 
-        On ->
-            Off
+        _ ->
+            Creating

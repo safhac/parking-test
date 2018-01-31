@@ -5,9 +5,9 @@ import Html exposing (Html, div, h2, text, img, label, br, input, a, button, h2,
 import Html.Attributes exposing (id, style, class, src, type_, value, href, attribute)
 import Html.Events exposing (onClick)
 import Date.Extra.Format exposing (isoString, utcIsoString, isoDateString, utcIsoDateString)
-import Types exposing (Model, Msg(..), ModalState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
+import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
 import Styles.Css exposing (..)
-import Components.NewParkingModal as NewParkingModal exposing (view)
+import Components.NewParkingModal as NewParkingModal exposing (newParkingView)
 import Actions.Common exposing (maybeList)
 
 
@@ -25,12 +25,12 @@ view model =
                 |> Dict.fromList
 
         modalStyle =
-            case model.uxState.popup of
-                Off ->
-                    modalDisplayNone
-
-                On ->
+            case model.uxState.app of
+                Creating ->
                     modalDisplayBlock
+
+                _ ->
+                    modalDisplayNone
 
         todayString =
             isoDateString model.today
@@ -44,17 +44,30 @@ view model =
                     allParkings
                         |> List.filter (\p -> p.date == todayString)
 
+                EmphasizeToday ->
+                    allParkings
+                        |> List.map
+                            (\p ->
+                                let
+                                    up =
+                                        if (p.date == todayString) then
+                                            { p | today = True }
+                                        else
+                                            p
+                                in
+                                    up
+                            )
+
                 _ ->
                     allParkings
     in
         div [ class "row tablebox" ]
-            [ -- maybeParkingList model.parkings cities streets
-              listParkings parkings cities streets
+            [ listParkings parkings cities streets
             , div []
                 [ input [ onClick ShowNewParking, type_ "submit", value "+", class "button pull-left round-but", Html.Attributes.title "הוסף חנייה" ]
                     []
                 ]
-            , NewParkingModal.view modalStyle cities streets model.today model.datePickerState model.newParking
+            , NewParkingModal.newParkingView modalStyle cities streets model.newParking
             ]
 
 
@@ -69,20 +82,6 @@ renderFilterButtons =
         , input [ onClick (FilterParkingsBy All), type_ "submit", value "הצג הכל", class "button" ]
             []
         ]
-
-
-
--- maybeParkingList : WebData (List ParkingRecord) -> Dict.Dict Int City -> Dict.Dict Int Street -> Html Msg
--- maybeParkingList parkings cities streets =
---     case parkings of
---         RemoteData.NotAsked ->
---             text ""
---         RemoteData.Loading ->
---             text "Loading..."
---         RemoteData.Success parkings ->
---             listParkings parkings cities streets
---         RemoteData.Failure error ->
---             text (toString error)
 
 
 listParkings : List ParkingRecord -> Dict.Dict Int City -> Dict.Dict Int Street -> Html Msg
@@ -116,8 +115,14 @@ parkingRow parking cities streets =
 
         street =
             getNameFrom parking.streetID streets
+
+        rowStyle =
+            if (parking.today) then
+                emphasisRecord
+            else
+                noStyle
     in
-        tr []
+        tr [ rowStyle ]
             [ td [] [ text (toString parking.id) ]
             , td [] [ text parking.date ]
             , td [] [ text parking.start ]

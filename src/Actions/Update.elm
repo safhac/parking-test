@@ -6,7 +6,7 @@ import Date exposing (now)
 import Date.Extra.Core exposing (fromTime)
 import Date.Extra.Format exposing (isoDateString)
 import RemoteData exposing (WebData)
-import Types exposing (Model, Msg(..), UXState, ModalState(..), User, ParkingRecord, UserStatus(..), ParkingDisplay(..), ParkingChangeType(..))
+import Types exposing (Model, Msg(..), UXState, AppState(..), User, ParkingRecord, UserStatus(..), ParkingDisplay(..), ParkingChangeType(..))
 import Actions.Commands exposing (..)
 import Actions.Common exposing (..)
 
@@ -70,7 +70,7 @@ update msg model =
                     model.uxState
 
                 newUX =
-                    { olUX | popup = (reverseState olUX.popup) }
+                    { olUX | app = (reverseState olUX.app) }
             in
                 ( { model | uxState = newUX }, Cmd.none )
 
@@ -177,10 +177,11 @@ initialParkingRecord =
     , date = ""
     , start = ""
     , end = ""
+    , today = True
     }
 
 
 initialUXState =
-    { popup = Off
+    { app = Normal
     , filtering = All
     }

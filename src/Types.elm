@@ -77,6 +77,7 @@ type alias ParkingRecord =
     , date : String
     , start : String
     , end : String
+    , today : Bool
     }
 
 
@@ -106,7 +107,7 @@ type alias ParkingID =
 
 
 type alias UXState =
-    { popup : ModalState
+    { app : AppState
     , filtering : ParkingDisplay
     }
 
@@ -114,6 +115,13 @@ type alias UXState =
 type ModalState
     = On
     | Off
+
+
+type AppState
+    = Normal
+    | Creating
+    | Editing
+    | Deleteing
 
 
 type PickerType
