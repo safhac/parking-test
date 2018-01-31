@@ -94,9 +94,28 @@ saveParkingRequest parking =
         }
 
 
+createParkingRequest : ParkingRecord -> Http.Request ParkingRecord
+createParkingRequest parking =
+    Http.request
+        { body = parkingEncoder parking |> Http.jsonBody
+        , expect = Http.expectJson parkingDecoder
+        , headers = []
+        , method = "POST"
+        , timeout = Nothing
+        , url = saveParkingUrl parking.id
+        , withCredentials = False
+        }
+
+
 saveParkingCmd : ParkingRecord -> Cmd Msg
 saveParkingCmd parking =
     saveParkingRequest parking
+        |> Http.send OnParkingSave
+
+
+createParkingCmd : ParkingRecord -> Cmd Msg
+createParkingCmd parking =
+    createParkingRequest parking
         |> Http.send OnParkingSave
 
 

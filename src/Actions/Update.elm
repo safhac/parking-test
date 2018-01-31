@@ -49,7 +49,11 @@ update msg model =
                     model.newParking
 
                 parkWithId =
-                    ({ park | id = (maybeList parkList |> getMaxParkIdFrom) })
+                    ({ park
+                        | id = (maybeList parkList |> getMaxParkIdFrom)
+                        , date = (isoDateString model.today)
+                     }
+                    )
             in
                 ( { model
                     | newParking = parkWithId
@@ -145,7 +149,7 @@ update msg model =
                 if (exists == True) then
                     ( model, saveParkingCmd updatedPark )
                 else
-                    ( { model | newParking = updatedPark }, Cmd.none )
+                    ( { model | newParking = updatedPark }, createParkingCmd updatedPark )
 
 
 init : ( Model, Cmd Msg )
