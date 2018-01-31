@@ -55,7 +55,7 @@ newParkingView cities streets newPark =
                 ]
             , div [ class "row pull-left" ]
                 [ br [] []
-                , input [ onClick (ParkingMsg (Creating newPark.id)), type_ "submit", value "הוסף", class "button " ] []
+                , input [ onClick SubmitNewParking, type_ "submit", value "הוסף", class "button " ] []
                 ]
             ]
         ]

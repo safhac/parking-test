@@ -19,6 +19,7 @@ type Msg
     | OnParkingSave (Result Http.Error ParkingRecord)
     | UpdateParking Int ParkingProperty String
     | FilterParkingsBy ParkingDisplay
+    | SubmitNewParking
 
 
 type alias Model =

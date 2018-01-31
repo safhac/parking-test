@@ -77,7 +77,12 @@ streetDecoder =
 
 
 saveParkingUrl : ParkingID -> String
-saveParkingUrl parkingId =
+saveParkingUrl pid =
+    "http://localhost:4000/Parking?id=" ++ (toString pid)
+
+
+updateParkingUrl : ParkingID -> String
+updateParkingUrl parkingId =
     "http://localhost:4000/Parking/" ++ (toString parkingId)
 
 
@@ -89,7 +94,7 @@ saveParkingRequest parking =
         , headers = []
         , method = "PATCH"
         , timeout = Nothing
-        , url = saveParkingUrl parking.id
+        , url = updateParkingUrl parking.id
         , withCredentials = False
         }
 

@@ -106,14 +106,10 @@ update msg model =
             )
 
         OnParkingSave (Ok parking) ->
-            ( model, fetchParkings )
+            ( model, Cmd.batch [ fetchParkings, msgToCmd <| ParkingMsg Normal ] )
 
         OnParkingSave (Err err) ->
-            let
-                _ =
-                    Debug.log "err" err
-            in
-                model ! []
+            model ! []
 
         UpdateParking pid parkingChangeType val ->
             let
@@ -149,7 +145,10 @@ update msg model =
                 if (exists == True) then
                     ( model, saveParkingCmd updatedPark )
                 else
-                    ( { model | newParking = updatedPark }, createParkingCmd updatedPark )
+                    ( { model | newParking = updatedPark }, Cmd.none )
+
+        SubmitNewParking ->
+            ( model, createParkingCmd model.newParking )
 
 
 init : ( Model, Cmd Msg )
@@ -192,3 +191,9 @@ initialUXState =
     { app = Normal
     , filtering = All
     }
+
+
+msgToCmd : Msg -> Cmd Msg
+msgToCmd msg =
+    Task.succeed msg
+        |> Task.perform identity
