@@ -20,6 +20,8 @@ type Msg
     | UpdateParking Int ParkingProperty String
     | FilterParkingsBy ParkingDisplay
     | SubmitNewParking
+    | ConfirmDeleteParking ParkingID
+    | OnParkingDeleted (Result Http.Error ())
 
 
 type alias Model =

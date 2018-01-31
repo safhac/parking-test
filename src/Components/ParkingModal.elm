@@ -74,7 +74,7 @@ deleteParkingView pid =
                 ]
             , div [ class "row pull-left" ]
                 [ br [] []
-                , input [ type_ "submit", value "מחיקה", class "button " ] []
+                , input [ onClick (ConfirmDeleteParking pid), type_ "submit", value "מחיקה", class "button " ] []
                 ]
             ]
         ]

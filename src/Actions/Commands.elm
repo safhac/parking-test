@@ -112,6 +112,19 @@ createParkingRequest parking =
         }
 
 
+deleteParkingRequest : ParkingID -> Http.Request ()
+deleteParkingRequest pid =
+    Http.request
+        { body = Http.emptyBody
+        , expect = Http.expectStringResponse (\_ -> Ok ())
+        , headers = []
+        , method = "DELETE"
+        , timeout = Nothing
+        , url = updateParkingUrl pid
+        , withCredentials = False
+        }
+
+
 saveParkingCmd : ParkingRecord -> Cmd Msg
 saveParkingCmd parking =
     saveParkingRequest parking
@@ -122,6 +135,12 @@ createParkingCmd : ParkingRecord -> Cmd Msg
 createParkingCmd parking =
     createParkingRequest parking
         |> Http.send OnParkingSave
+
+
+deleteParkingCmd : ParkingID -> Cmd Msg
+deleteParkingCmd pid =
+    deleteParkingRequest pid
+        |> Http.send OnParkingDeleted
 
 
 parkingEncoder : ParkingRecord -> Encode.Value

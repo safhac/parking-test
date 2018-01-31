@@ -150,6 +150,15 @@ update msg model =
         SubmitNewParking ->
             ( model, createParkingCmd model.newParking )
 
+        ConfirmDeleteParking pid ->
+            ( model, deleteParkingCmd pid )
+
+        OnParkingDeleted (Ok _) ->
+            ( model, Cmd.batch [ fetchParkings, msgToCmd <| ParkingMsg Normal ] )
+
+        OnParkingDeleted (Err err) ->
+            model ! []
+
 
 init : ( Model, Cmd Msg )
 init =
