@@ -145,7 +145,12 @@ update msg model =
                     ( { model | newParking = updatedPark }, Cmd.none )
 
         SubmitNewParking ->
-            ( model, createParkingCmd model.newParking )
+            ( { model
+                | newParking = initialParkingRecord
+                , uxState = initialUXState
+              }
+            , createParkingCmd model.newParking
+            )
 
         ConfirmDeleteParking pid ->
             ( model, deleteParkingCmd pid )
