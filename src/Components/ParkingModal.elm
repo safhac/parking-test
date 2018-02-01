@@ -129,7 +129,7 @@ editParkingView cities streets park =
                 ]
             , div [ class "row pull-left" ]
                 [ br [] []
-                , input [ onClick (ParkingMsg (Creating park.id)), type_ "submit", value "עדכן", class "button " ] []
+                , input [ onClick (ParkingMsg Normal), type_ "submit", value "עדכן", class "button " ] []
                 ]
             ]
         ]

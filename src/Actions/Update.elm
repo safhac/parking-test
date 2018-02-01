@@ -103,7 +103,7 @@ update msg model =
             )
 
         OnParkingSave (Ok parking) ->
-            ( model, Cmd.batch [ fetchParkings, msgToCmd <| ParkingMsg Normal ] )
+            ( model, fetchParkings )
 
         OnParkingSave (Err err) ->
             model ! []
@@ -140,7 +140,7 @@ update msg model =
                             { park | streetID = (Result.withDefault 0 (String.toInt val)) }
             in
                 if (exists == True) then
-                    ( model, Cmd.none )
+                    ( model, saveParkingCmd updatedPark )
                 else
                     ( { model | newParking = updatedPark }, Cmd.none )
 
