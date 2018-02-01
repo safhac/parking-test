@@ -1,7 +1,0 @@
-
-{
-    "/Cities/*": "/$1",
-    "/Streets/*": "/$1",
-    "/Parking/*": "/$1",
-    "/Parking\\?id=:id": "/Parking/:id"
-  }
