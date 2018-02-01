@@ -15,7 +15,6 @@ type Msg
     | OnFetchCities (WebData (List City))
     | OnFetchStreets (WebData (List Street))
     | ParkingMsg AppState
-    | DatePickerChanged PickerType DateTimePicker.State (Maybe Date.Date)
     | OnParkingSave (Result Http.Error ParkingRecord)
     | UpdateParking Int ParkingProperty String
     | FilterParkingsBy ParkingDisplay
@@ -54,11 +53,6 @@ type ParkingDisplay
     | EmphasizeToday
 
 
-type ParkingTimeType
-    = Start
-    | End
-
-
 type alias City =
     { id : CityID
     , desc : String
@@ -80,13 +74,6 @@ type alias ParkingRecord =
     , start : String
     , end : String
     , today : Bool
-    }
-
-
-type alias Parking =
-    { cities : List City
-    , streets : List Street
-    , parkings : List ParkingRecord
     }
 
 
@@ -114,21 +101,11 @@ type alias UXState =
     }
 
 
-type ModalState
-    = On
-    | Off
-
-
 type AppState
     = Normal
     | Creating ParkingID
     | Editing ParkingID
     | Deleteing ParkingID
-
-
-type PickerType
-    = AnalogDateTimePicker
-    | TimePicker
 
 
 type ParkingProperty

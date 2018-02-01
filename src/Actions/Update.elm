@@ -89,19 +89,6 @@ update msg model =
             in
                 ( { model | uxState = newUX }, Cmd.none )
 
-        DatePickerChanged which state value ->
-            ( { model
-                | today =
-                    case value of
-                        Nothing ->
-                            fromTime 0
-
-                        Just date ->
-                            date
-              }
-            , Cmd.none
-            )
-
         OnParkingSave (Ok parking) ->
             ( model, fetchParkings )
 

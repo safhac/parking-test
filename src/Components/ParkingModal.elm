@@ -1,17 +1,11 @@
 module Components.ParkingModal exposing (..)
 
 import Dict
-import Result
 import Html exposing (Html, Attribute, div, h2, text, img, label, p, br, span, input, a, button, select, option, h2, table, thead, th, tr, td, tbody)
 import Html.Attributes exposing (id, style, class, src, type_, value, href, attribute, required)
 import Html.Events exposing (onClick, onBlur, onInput)
-import Date exposing (Date, hour, minute)
-import Date.Extra.Format exposing (isoDateString)
-import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..), PickerType(..), ParkingTimeType(..), ParkingProperty(..))
+import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..), ParkingProperty(..))
 import Styles.Css exposing (..)
-import DateTimePicker
-import DateTimePicker.Config exposing (Config, DatePickerConfig, TimePickerConfig, defaultDatePickerConfig, defaultDateTimeI18n, defaultDateTimePickerConfig, defaultTimePickerConfig)
-import DateTimePicker.Css
 
 
 newParkingView : Dict.Dict Int City -> Dict.Dict Int Street -> ParkingRecord -> Html Msg
@@ -149,63 +143,3 @@ makeOption thing pid =
 
 unselected =
     option [ value "0" ] [ text "יש לבחור" ]
-
-
-analogDateTimePickerConfig : Config (DatePickerConfig TimePickerConfig) Msg
-analogDateTimePickerConfig =
-    let
-        defaultDateTimeConfig =
-            defaultDateTimePickerConfig (DatePickerChanged AnalogDateTimePicker)
-    in
-        { defaultDateTimeConfig
-            | timePickerType = DateTimePicker.Config.Analog
-            , allowYearNavigation = False
-        }
-
-
-timePickerConfig : Config TimePickerConfig Msg
-timePickerConfig =
-    let
-        defaultDateTimeConfig =
-            defaultTimePickerConfig (DatePickerChanged TimePicker)
-    in
-        { defaultDateTimeConfig
-            | timePickerType = DateTimePicker.Config.Analog
-        }
-
-
-viewPicker : PickerType -> ParkingTimeType -> Date -> DateTimePicker.State -> Html Msg
-viewPicker which timeType today state =
-    p []
-        [ label []
-            [ text (toString which)
-            , text ":"
-            , case which of
-                AnalogDateTimePicker ->
-                    DateTimePicker.dateTimePickerWithConfig analogDateTimePickerConfig [] state (Maybe.Just today)
-
-                TimePicker ->
-                    DateTimePicker.timePickerWithConfig timePickerConfig [] state (Maybe.Just today)
-            ]
-        ]
-
-
-
--- handleEvent : Int -> String -> Msg
--- handleEvent pid timeVal =
---     (UpdateParking pid (StartTime timeVal) <|
---         Json.succeed
---     )
--- handleUnFocusEvent : Int -> List (Attribute Msg)
--- handleUnFocusEvent sceneID =
---     if sceneID /= -1 then
---         List.map
---             (\te ->
---                 on te
---                     (Json.succeed <|
---                         (SwitchScene sceneID)
---                     )
---             )
---             [ "webkitTransitionEnd", "ontransitionend", "msTransitionEnd", "transitionend" ]
---     else
---         []

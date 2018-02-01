@@ -2,7 +2,7 @@ module Components.Parkings exposing (view)
 
 import Dict
 import Html exposing (Html, div, h2, text, img, label, br, input, a, button, h2, table, thead, th, tr, td, tbody)
-import Html.Attributes exposing (id, style, class, src, type_, value, href, attribute)
+import Html.Attributes exposing (id, style, class, type_, value, href, attribute)
 import Html.Events exposing (onClick)
 import Date.Extra.Format exposing (isoString, utcIsoString, isoDateString, utcIsoDateString)
 import Types exposing (Model, Msg(..), AppState(..), ParkingRecord, City, Street, CityID, StreetID, ParkingID, ParkingDisplay(..))
@@ -74,11 +74,7 @@ view model =
                                 div [] []
 
                 Deleteing pid ->
-                    let
-                        _ =
-                            Debug.log "Deleteing" pid
-                    in
-                        ParkingModal.deleteParkingView pid
+                    ParkingModal.deleteParkingView pid
     in
         div [ class "row tablebox" ]
             [ listParkings parkings cities streets

@@ -8,6 +8,13 @@ import RemoteData exposing (WebData)
 import Types exposing (Model, Msg(..), ParkingID, ParkingRecord, City, Street, ParkingDisplay(..))
 
 
+{-| Commands
+@docs Commands
+
+
+# Named Commands
+
+-}
 fetchParkings : Cmd Msg
 fetchParkings =
     Http.get (fetchUrls "Parking") parkingsDecoder
@@ -29,11 +36,53 @@ fetchStreets =
         |> Cmd.map OnFetchStreets
 
 
+saveParkingCmd : ParkingRecord -> Cmd Msg
+saveParkingCmd parking =
+    saveParkingRequest parking
+        |> Http.send OnParkingSave
+
+
+createParkingCmd : ParkingRecord -> Cmd Msg
+createParkingCmd parking =
+    createParkingRequest parking
+        |> Http.send OnParkingSave
+
+
+deleteParkingCmd : ParkingID -> Cmd Msg
+deleteParkingCmd pid =
+    deleteParkingRequest pid
+        |> Http.send OnParkingDeleted
+
+
+{-| URLs
+@docs URLs
+
+
+# Named URLs
+
+-}
 fetchUrls : String -> String
 fetchUrls items =
     "http://localhost:4000/" ++ items
 
 
+saveParkingUrl : ParkingID -> String
+saveParkingUrl pid =
+    "http://localhost:4000/Parking?id=" ++ (toString pid)
+
+
+updateParkingUrl : ParkingID -> String
+updateParkingUrl parkingId =
+    "http://localhost:4000/Parking/" ++ (toString parkingId)
+
+
+{-| Decoders
+@docs Decoders
+
+
+# Decoders
+
+-}
 parkingsDecoder : Decode.Decoder (List ParkingRecord)
 parkingsDecoder =
     Decode.list parkingDecoder
@@ -76,16 +125,35 @@ streetDecoder =
         |> required "StreetDesc" Decode.string
 
 
-saveParkingUrl : ParkingID -> String
-saveParkingUrl pid =
-    "http://localhost:4000/Parking?id=" ++ (toString pid)
+{-| Encoders
+@docs Encoders
 
 
-updateParkingUrl : ParkingID -> String
-updateParkingUrl parkingId =
-    "http://localhost:4000/Parking/" ++ (toString parkingId)
+# encoders
+
+-}
+parkingEncoder : ParkingRecord -> Encode.Value
+parkingEncoder parking =
+    let
+        attributes =
+            [ ( "id", Encode.int parking.id )
+            , ( "cityID", Encode.int parking.cityID )
+            , ( "streetID", Encode.int parking.streetID )
+            , ( "date", Encode.string parking.date )
+            , ( "start", Encode.string parking.start )
+            , ( "end", Encode.string parking.end )
+            ]
+    in
+        Encode.object attributes
 
 
+{-| RemoteData
+@docs Http requests
+
+
+# requests
+
+-}
 saveParkingRequest : ParkingRecord -> Http.Request ParkingRecord
 saveParkingRequest parking =
     Http.request
@@ -123,36 +191,3 @@ deleteParkingRequest pid =
         , url = updateParkingUrl pid
         , withCredentials = False
         }
-
-
-saveParkingCmd : ParkingRecord -> Cmd Msg
-saveParkingCmd parking =
-    saveParkingRequest parking
-        |> Http.send OnParkingSave
-
-
-createParkingCmd : ParkingRecord -> Cmd Msg
-createParkingCmd parking =
-    createParkingRequest parking
-        |> Http.send OnParkingSave
-
-
-deleteParkingCmd : ParkingID -> Cmd Msg
-deleteParkingCmd pid =
-    deleteParkingRequest pid
-        |> Http.send OnParkingDeleted
-
-
-parkingEncoder : ParkingRecord -> Encode.Value
-parkingEncoder parking =
-    let
-        attributes =
-            [ ( "id", Encode.int parking.id )
-            , ( "cityID", Encode.int parking.cityID )
-            , ( "streetID", Encode.int parking.streetID )
-            , ( "date", Encode.string parking.date )
-            , ( "start", Encode.string parking.start )
-            , ( "end", Encode.string parking.end )
-            ]
-    in
-        Encode.object attributes
