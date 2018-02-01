@@ -70,9 +70,6 @@ update msg model =
 
         ParkingMsg parkMsg ->
             let
-                _ =
-                    Debug.log "parkmsg" parkMsg
-
                 olUX =
                     model.uxState
 
@@ -143,7 +140,7 @@ update msg model =
                             { park | streetID = (Result.withDefault 0 (String.toInt val)) }
             in
                 if (exists == True) then
-                    ( model, saveParkingCmd updatedPark )
+                    ( model, Cmd.none )
                 else
                     ( { model | newParking = updatedPark }, Cmd.none )
 

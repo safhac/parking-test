@@ -37,9 +37,11 @@ newParkingView cities streets newPark =
                     , br [] []
                     , div []
                         [ select [ onInput (UpdateParking (newPark.id) CityChange), class "form-control ltr", id "city" ]
-                            (List.map
-                                (\c -> makeOption c newPark.cityID)
-                                (Dict.values cities)
+                            (unselected
+                                :: (List.map
+                                        (\c -> makeOption c newPark.cityID)
+                                        (Dict.values cities)
+                                   )
                             )
                         ]
                     ]
@@ -50,7 +52,9 @@ newParkingView cities streets newPark =
                 , br [] []
                 , div []
                     [ select [ onInput (UpdateParking (newPark.id) StreetChange), class "form-control ltr", id "street" ]
-                        (List.map (\c -> makeOption c newPark.streetID) (Dict.values streets))
+                        (unselected
+                            :: (List.map (\c -> makeOption c newPark.streetID) (Dict.values streets))
+                        )
                     ]
                 ]
             , div [ class "row pull-left" ]
@@ -82,60 +86,53 @@ deleteParkingView pid =
 
 editParkingView : Dict.Dict Int City -> Dict.Dict Int Street -> ParkingRecord -> Html Msg
 editParkingView cities streets park =
-    let
-        _ =
-            Debug.log "date" park.date
-
-        _ =
-            Debug.log "date" (Date.fromString park.date)
-    in
-        div [ class "row medbox", modalStyle, modalDisplayBlock ]
-            [ div [ modalContentStyle ]
-                [ div []
-                    [ span [ onClick (ParkingMsg Normal), closeStyle ] [ text "X" ]
-                    , h2 [] [ text ("עריכת חנייה " ++ toString park.id) ]
-                    , br [] []
-                    , label [] [ text "תאריך:" ]
-                    , br [] []
-                    , input [ onInput (UpdateParking (park.id) DateChange), type_ "date", value park.date, class "form-control ltr", id "date" ] []
-                    , br [] []
-                    , label [] [ text "התחלה:" ]
-                    , br [] []
-                    , input [ onInput (UpdateParking (park.id) StartTime), type_ "time", value park.start, class "form-control ltr", id "startTime" ] []
-                    ]
-                , div []
-                    [ br [] []
-                    , label [] [ text "סיום:" ]
-                    , br [] []
-                    , input [ onInput (UpdateParking (park.id) EndTime), type_ "time", value park.end, class "form-control ltr", id "endTime" ] []
-                    , div [ dropdownStyle ]
-                        [ br [] []
-                        , label [] [ text "יישוב:" ]
-                        , br [] []
-                        , div []
-                            [ select [ onInput (UpdateParking (park.id) CityChange), class "form-control ltr", id "city" ]
-                                (List.map
-                                    (\c -> makeOption c park.cityID)
-                                    (Dict.values cities)
-                                )
-                            ]
-                        ]
-                    ]
+    div [ class "row medbox", modalStyle, modalDisplayBlock ]
+        [ div [ modalContentStyle ]
+            [ div []
+                [ span [ onClick (ParkingMsg Normal), closeStyle ] [ text "X" ]
+                , h2 [] [ text ("עריכת חנייה " ++ toString park.id) ]
+                , br [] []
+                , label [] [ text "תאריך:" ]
+                , br [] []
+                , input [ onInput (UpdateParking (park.id) DateChange), type_ "date", value park.date, class "form-control ltr", id "date" ] []
+                , br [] []
+                , label [] [ text "התחלה:" ]
+                , br [] []
+                , input [ onInput (UpdateParking (park.id) StartTime), type_ "time", value park.start, class "form-control ltr", id "startTime" ] []
+                ]
+            , div []
+                [ br [] []
+                , label [] [ text "סיום:" ]
+                , br [] []
+                , input [ onInput (UpdateParking (park.id) EndTime), type_ "time", value park.end, class "form-control ltr", id "endTime" ] []
                 , div [ dropdownStyle ]
                     [ br [] []
-                    , label [] [ text "רחוב:" ]
+                    , label [] [ text "יישוב:" ]
                     , br [] []
                     , div []
-                        [ select [ onInput (UpdateParking (park.id) StreetChange), class "form-control ltr", id "street" ]
-                            (List.map (\c -> makeOption c park.streetID) (Dict.values streets))
+                        [ select [ onInput (UpdateParking (park.id) CityChange), class "form-control ltr", id "city" ]
+                            (List.map
+                                (\c -> makeOption c park.cityID)
+                                (Dict.values cities)
+                            )
                         ]
                     ]
-                , div [ class "row pull-left" ]
-                    [ br [] []
-                    , input [ onClick (ParkingMsg (Creating park.id)), type_ "submit", value "עדכן", class "button " ] []
+                ]
+            , div [ dropdownStyle ]
+                [ br [] []
+                , label [] [ text "רחוב:" ]
+                , br [] []
+                , div []
+                    [ select [ onInput (UpdateParking (park.id) StreetChange), class "form-control ltr", id "street" ]
+                        (List.map (\c -> makeOption c park.streetID) (Dict.values streets))
                     ]
                 ]
+            , div [ class "row pull-left" ]
+                [ br [] []
+                , input [ onClick (ParkingMsg (Creating park.id)), type_ "submit", value "עדכן", class "button " ] []
+                ]
             ]
+        ]
 
 
 makeOption : { a | id : Int, desc : String } -> Int -> Html Msg

@@ -1,7 +1,5 @@
 module Actions.Common exposing (..)
 
-import Date.Extra.Config.Config_en_us exposing (config)
-import Date.Extra.Format as Format exposing (format, formatUtc, isoMsecOffsetFormat)
 import RemoteData exposing (WebData)
 import Types exposing (ParkingRecord, ParkingID, AppState(..))
 
